@@ -23,6 +23,11 @@ Any downtimes on this service is out of the automation's scope.
 
 A recommendation would be to set-up a local email server similar to (temp-mail) for testing purposes.
 
+## Task no. 4 (Adding password as part of signup flow)
+The test could be found on the `passwordField` branch. Given that the actual HTML for email sign-up does not contain any password fields, the selectors used in the test were dummies and were assumed. Therefore, this part of the test is expected to fail when automation is running.
+
+`Master` branch however, is kept pristine for Task no. 3 (positive test of the email sign-up flow)
+
 ## Demo
 
 ![alt text](https://github.com/arcmorales/hooq/blob/master/img/hooq.gif "Hooq")
