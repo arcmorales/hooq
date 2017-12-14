@@ -45,11 +45,21 @@ describe('Positive test to redirection to sign-up page', function() {
 });
 
 describe('Positive test to signing up via email', function () {
-        it('should allow the user to sign-up when valid email is provided', function () {
+        it('should allow the user to sign-up when valid email and password is provided', function () {
                 var emailField = browser.element('input[type="email"]');
                 fullEmail = randomEmail + emailDomain;
                 console.log('>>> signing up with email: '+fullEmail)
                 emailField.setValue(fullEmail);
+    /* insert here the automated test for adding a password field upon sign-up
+        the test is expected to fail here, since the selectors being used are non-existent and are just presumed
+        scenario:
+            two password fields, one for setting password, another in order to verify password match
+    */        
+                var randomPassword = "TestPwd" + Date.now();            
+                var passwordField = browser.element('input#QA-password[type="password"]');
+                passwordField.setValue(randomPassword);
+                var passwordRetype = browser.element('input#QA-retype-password[type="password"]');
+                passwordRetype.setValue(randomPassword);
                 browser.waitForEnabled('#submit-button');
                 browser.click('#submit-button');
                 browser.waitForExist('a#resend-button');
