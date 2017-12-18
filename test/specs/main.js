@@ -28,7 +28,7 @@ describe('Navigation to HOOQ landing page', function() {
         });
 });
 
-describe('Positive test to redirection to sign-up page', function() {
+describe('Redirection to sign-up page', function() {
         it('should be able find the sign-up button on the nav', function () {
                 browser.scroll('div.whats-hot');
                 browser.click('.nav-item .btn-signup');
@@ -43,6 +43,41 @@ describe('Positive test to redirection to sign-up page', function() {
                 expect(emailSignupUrl).to.equal('https://wooow.hooq.tv/sg/signup-email');
          });
 });
+
+describe('Negative test to signing up via email',function () {
+     it('should not allow the user to sign-up when invalid email format is provided on email field', function () {
+                var emailField = browser.element('input[type="email"]');
+                console.log('>>> signing up with invalid email format: Abcd123')
+                emailField.setValue('Abcd123');
+                browser.waitForEnabled('#submit-button');
+                browser.click('#submit-button');
+                browser.waitForExist('.error-message');
+                var getErrMsg = browser.getText('.error-message');
+                expect(getErrMsg).to.equal('Invalid email address');
+    })
+
+    it('should not allow the user to sign-up when no input is provided on email field', function () {
+                var emailField = browser.element('input[type="email"]');
+                console.log('>>> signing up without any input')
+                emailField.setValue('');
+                browser.waitForEnabled('#submit-button');
+                browser.click('#submit-button');
+                browser.waitForExist('.error-message');
+                var getErrMsg = browser.getText('.error-message');
+                expect(getErrMsg).to.equal('Invalid email address');
+    })
+
+    it('should not allow the user to sign-up when only white space is provided on email field', function () {
+                var emailField = browser.element('input[type="email"]');
+                console.log('>>> signing up with only white spaces on the email field')
+                emailField.setValue('           ');
+                browser.waitForEnabled('#submit-button');
+                browser.click('#submit-button');
+                browser.waitForExist('.error-message');
+                var getErrMsg = browser.getText('.error-message');
+                expect(getErrMsg).to.equal('Invalid email address');
+    })
+})
 
 describe('Positive test to signing up via email', function () {
         it('should allow the user to sign-up when valid email is provided', function () {
